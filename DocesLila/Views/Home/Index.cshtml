@@ -1,8 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .Imagem {
+        width: 200px;
+        height: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+    }
+    .Buy{
+        margin-bottom: 10%;
+    }
+    .Anuncio {
+        border-width: medium;
+        border-style: solid;
+        border-color: red;
+    }
+</style>
+<div class="container my-5">
+    <div class="row">
+        <!-- Coloque suas imagens aqui -->
+        <div class="col-md-3 mb-3 Anuncio Anuncio">
+            <div>
+                <img src="~/Imagens/Biscoitos/01.jpg" class="img-thumbnail rounded Imagem" alt="Imagem 1">
+                <div>
+                    <span class="Titulo">Biscoito 01</span>
+                </div>
+                <div>
+                    <span class="Preco">R$: 25,00</span>
+                </div>
+                <div>
+                    <button type="button" class="btn-success btn-lg btn-block Buy">Comprar Agora</button>
+                </div>
+            </div>
+        </div>
+        <!--<div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/02.jpg" class="img-fluid rounded Imagem" alt="Imagem 2">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/03.jpeg" class="img-fluid rounded Imagem" alt="Imagem 3">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/04.jpg" class="img-fluid rounded Imagem" alt="Imagem 4">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/05.jpg" class="img-fluid rounded Imagem" alt="Imagem 5">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/06.jpg" class="img-fluid rounded Imagem" alt="Imagem 6">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/07.jpg" class="img-fluid rounded Imagem" alt="Imagem 7">
+        </div>
+        <div class="col-md-3 mb-3 Anuncio">
+            <img src="~/Imagens/Biscoitos/08.jpg" class="img-fluid rounded Imagem" alt="Imagem 8">
+        </div>-->
+        <!-- Adicione mais colunas para mais imagens -->
+    </div>
 </div>
