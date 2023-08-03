@@ -7,9 +7,7 @@ namespace DocesLila.Context
 {
     public class DocesLilaContext : DbContext
     {
-        public DocesLilaContext(DbContextOptions<DocesLilaContext> options) : base(options)
-        {
-        }
+        public DocesLilaContext(DbContextOptions<DocesLilaContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
 
@@ -53,7 +51,7 @@ namespace DocesLila.Context
                     Title="Casadinho",
                     Description="gostoso",
                     Quantity=300,
-                    Price=10.00,
+                    Price=10.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(3)
                 },
@@ -63,7 +61,7 @@ namespace DocesLila.Context
                     Title="Bala de coco",
                     Description="muito bom",
                     Quantity=200,
-                    Price=8.00,
+                    Price=8.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(4)
                 },
@@ -73,7 +71,7 @@ namespace DocesLila.Context
                     Title="Rosquinha",
                     Description="Delicia",
                     Quantity=120,
-                    Price=5.00,
+                    Price=5.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(10)
                 },
@@ -83,7 +81,7 @@ namespace DocesLila.Context
                     Title="Suspiro",
                     Description="Doce",
                     Quantity=500,
-                    Price=4.00,
+                    Price=4.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(15)
                 },
@@ -93,7 +91,7 @@ namespace DocesLila.Context
                     Title="Biscoito de Nozes",
                     Description="Saboroso",
                     Quantity=82,
-                    Price=12.00,
+                    Price=12.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(2)
                 },
@@ -103,7 +101,7 @@ namespace DocesLila.Context
                     Title="Alfajor",
                     Description="Chocolate",
                     Quantity=40,
-                    Price=20.00,
+                    Price=20.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(1)
                 },
@@ -113,7 +111,7 @@ namespace DocesLila.Context
                     Title="Goiabinha",
                     Description="Macio",
                     Quantity=234,
-                    Price=6.00,
+                    Price=6.00f,
                     RegistrationDate=DateTime.Now,
                     ExpireDate=DateTime.Now.AddDays(7)
                 }

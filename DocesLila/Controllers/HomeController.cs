@@ -1,4 +1,5 @@
-﻿using DocesLila.Models;
+﻿using DocesLila.Context;
+using DocesLila.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,15 +13,18 @@ namespace DocesLila.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DocesLilaContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DocesLilaContext dbContext)
         {
             _logger = logger;
+            _dbContext = dbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var products = _dbContext.Products.ToList();
+            return View(products);
         }
 
         public IActionResult Privacy()

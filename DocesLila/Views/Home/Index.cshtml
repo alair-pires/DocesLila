@@ -1,62 +1,40 @@
-﻿@{
+﻿@model List<DocesLila.Entities.Product>
+@{
     ViewData["Title"] = "Home Page";
 }
-<style>
-    .Imagem {
-        width: 200px;
-        height: 200px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 10%;
-    }
-    .Buy{
-        margin-bottom: 10%;
-    }
-    .Anuncio {
-        border-width: medium;
-        border-style: solid;
-        border-color: red;
-    }
-</style>
+<html>
+
 <div class="container my-5">
     <div class="row">
-        <!-- Coloque suas imagens aqui -->
-        <div class="col-md-3 mb-3 Anuncio Anuncio">
-            <div>
-                <img src="~/Imagens/Biscoitos/01.jpg" class="img-thumbnail rounded Imagem" alt="Imagem 1">
-                <div>
-                    <span class="Titulo">Biscoito 01</span>
-                </div>
-                <div>
-                    <span class="Preco">R$: 25,00</span>
-                </div>
-                <div>
-                    <button type="button" class="btn-success btn-lg btn-block Buy">Comprar Agora</button>
-                </div>
-            </div>
-        </div>
-        <!--<div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/02.jpg" class="img-fluid rounded Imagem" alt="Imagem 2">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/03.jpeg" class="img-fluid rounded Imagem" alt="Imagem 3">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/04.jpg" class="img-fluid rounded Imagem" alt="Imagem 4">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/05.jpg" class="img-fluid rounded Imagem" alt="Imagem 5">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/06.jpg" class="img-fluid rounded Imagem" alt="Imagem 6">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/07.jpg" class="img-fluid rounded Imagem" alt="Imagem 7">
-        </div>
-        <div class="col-md-3 mb-3 Anuncio">
-            <img src="~/Imagens/Biscoitos/08.jpg" class="img-fluid rounded Imagem" alt="Imagem 8">
-        </div>-->
-        <!-- Adicione mais colunas para mais imagens -->
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Batch</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>RegistrationDate</th>
+                <th>ExpireDate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Batch</td>
+                    <td>@item.Description</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.RegistrationDate</td>
+                    <td>@item.ExpireDate</td>
+                </tr>
+            }
+        </tbody>
+        </table>
     </div>
 </div>
+</html>
