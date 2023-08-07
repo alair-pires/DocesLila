@@ -1,20 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DocesLila.Entities
 {
     public class Product
     {
+
         public int Id { get; set; }
         public string Title { get; set; }
-        public string Batch { get; set; }
+        public string? Batch { get; set; }
         public string Description { get; set; }
-        public float Price { get; set; }
-        public int Quantity { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal? Price { get; set; }
+        public int? Quantity { get; set; }
+        [Display(Name = "Registration Date")]
+        [DataType(DataType.Date)]
         public DateTime RegistrationDate { get; set; }
-        public DateTime ExpireDate { get; set; }
+        [Display(Name = "Expire Date")]
+        [DataType(DataType.Date)]
+        public DateTime? ExpireDate { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DocesLila.Migrations
 {
     [DbContext(typeof(DocesLilaContext))]
-    [Migration("20230730211746_PrimeiraTabela")]
-    partial class PrimeiraTabela
+    [Migration("20230807032759_BaseAtualizada")]
+    partial class BaseAtualizada
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,29 +29,25 @@ namespace DocesLila.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Batch")
-                        .HasMaxLength(5)
-                        .HasColumnType("nvarchar(5)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExpireDate")
-                        .HasColumnType("Date");
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<double>("Price")
-                        .HasPrecision(3, 2)
-                        .HasColumnType("float(3)");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
