@@ -1,6 +1,8 @@
 ﻿using DocesLila.Context;
+using DocesLila.Entities;
 using DocesLila.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,95 @@ namespace DocesLila.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            var productDetail = await _dbContext.Products.FindAsync(id);
+            if (productDetail == null)
+            {
+                return NotFound();
+            }
+            return View(productDetail);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContext.Add(product);
+                await _dbContext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _dbContext.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Product product)
+        {
+            if (id != product.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _dbContext.Update(product);
+                    await _dbContext.SaveChangesAsync();
+                }
+                catch (Exception)
+                {
+                    if (!Exists(id))
+                    {
+                        return NotFound();
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var product = await _dbContext.Products.FindAsync(id);
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -36,6 +127,11 @@ namespace DocesLila.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private bool Exists(int id)
+        {
+            return _dbContext.Products.Any(x => x.Id == id);
         }
     }
 }
