@@ -48,6 +48,7 @@ namespace DocesLila.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.RegistrationDate = DateTime.Now;
                 _dbContext.Add(product);
                 await _dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
