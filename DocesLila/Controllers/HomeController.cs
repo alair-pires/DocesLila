@@ -23,10 +23,26 @@ namespace DocesLila.Controllers
             _dbContext = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 6)
         {
-            var products = _dbContext.Products.ToList();
-            return View(products);
+            int totalProducts = _dbContext.Products.Count();
+            int totalPages = (int)Math.Ceiling((double)totalProducts / pageSize);
+
+            if (page < 1)
+            {
+                page = 1;
+            }
+            else if (page > totalPages)
+            {
+                page = totalPages;
+            }
+
+            var productsToDisplay = _dbContext.Products.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            //var products = _dbContext.Products.ToList();
+            ViewData["TotalPages"] = totalPages;
+            ViewData["CurrentPage"] = page;
+
+            return View(productsToDisplay);
         }
 
         public async Task<IActionResult> Details(int? id)
