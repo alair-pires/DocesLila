@@ -44,14 +44,30 @@ namespace DocesLila.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id, Title, Batch, Description, Price, Quantity, RegistrationDate, ExpireDate")] Product product)
         {
             if (ModelState.IsValid)
             {
-                product.RegistrationDate = DateTime.Now;
-                _dbContext.Add(product);
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    product.RegistrationDate = DateTime.Now.Date;
+                    _dbContext.Add(product);
+                    await _dbContext.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+                    if (!Exists(product.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                
             }
             return View(product);
         }
@@ -71,6 +87,7 @@ namespace DocesLila.Controllers
             return View(product);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product)
         {
             if (id != product.Id)
@@ -112,6 +129,7 @@ namespace DocesLila.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _dbContext.Products.FindAsync(id);
