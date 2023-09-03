@@ -10,12 +10,11 @@ namespace DocesLila.Context
         public DocesLilaContext(DbContextOptions<DocesLilaContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
-            //modelBuilder.Entity<Product>().HasData(SeedTable());
         }
     }
 }

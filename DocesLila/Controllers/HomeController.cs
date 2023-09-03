@@ -1,12 +1,13 @@
 ﻿using DocesLila.Context;
 using DocesLila.Entities;
 using DocesLila.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace DocesLila.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DocesLilaContext _dbContext;
+        private readonly IWebHostEnvironment _environment;
 
         public HomeController(ILogger<HomeController> logger, DocesLilaContext dbContext)
         {
@@ -61,20 +63,50 @@ namespace DocesLila.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id, Title, Batch, Description, Price, Quantity, RegistrationDate, ExpireDate")] Product product)
+        public async Task<IActionResult> Create(ProductsViewModel productVW)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    product.RegistrationDate = DateTime.Now.Date;
+                    // Verifique se o diretório de destino existe; se não, crie-o
+                    if (productVW.FileUpload.Arquivo != null)
+                    {
+                        string uploadDir = Path.Combine(_environment.WebRootPath, "Images");
+                        if (!Directory.Exists(uploadDir))
+                        {
+                            Directory.CreateDirectory(uploadDir);
+                        }
+                        // Gere um nome de arquivo único para evitar conflitos
+                        string fileName = Path.GetFileName(productVW.FileUpload.Arquivo.FileName);
+                        string filePath = Path.Combine(uploadDir, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            productVW.FileUpload.Arquivo.CopyTo(stream);
+                        }
+
+                        ViewBag.Message = "Arquivo enviado com sucesso!";
+                    }
+
+                    var product = new Product
+                    {
+                        Title = productVW.Product.Title,
+                        Description = productVW.Product.Description,
+                        Batch = productVW.Product.Batch,
+                        Price = productVW.Product.Price,
+                        Quantity = productVW.Product.Quantity,
+                        ExpireDate = productVW.Product.ExpireDate,
+                        RegistrationDate = DateTime.Now.Date
+                    };
+                    //product.RegistrationDate = DateTime.Now.Date;
                     _dbContext.Add(product);
                     await _dbContext.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception)
                 {
-                    if (!Exists(product.Id))
+                    if (!Exists(productVW.Product.Id))
                     {
                         return NotFound();
                     }
@@ -83,9 +115,9 @@ namespace DocesLila.Controllers
                         throw;
                     }
                 }
-                
+
             }
-            return View(product);
+            return View(productVW);
         }
 
         public async Task<IActionResult> Edit(int? id)
