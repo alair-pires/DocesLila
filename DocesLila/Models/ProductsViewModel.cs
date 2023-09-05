@@ -8,6 +8,6 @@ namespace DocesLila.Models
     {
         public Product Product { get; set; }
         //public Image Image { get; set; }
-        public FileUploadModel FileUpload { get; set; }
+        //public FileUploadModel FileUpload { get; set; }
     }
 }

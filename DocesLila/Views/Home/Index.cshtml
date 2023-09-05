@@ -2,6 +2,16 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<style>
+    a {
+        color: inherit;
+    }
+    /* mouse over */
+    a:hover {
+        color: #000000;
+        text-decoration: none;
+    }
+</style>
 <h1>Products</h1>
 <p>
     <a asp-action="Create">Create New</a>
@@ -10,10 +20,12 @@
     <div class="row" id="product-container">
         @foreach (var item in Model)
         {
-            <div class="col-md-4 mb-4">
+        <a asp-action="Details" asp-route-id="@item.Id">
+            <div class="col-md-4 mb-4" id="produto">
                 <div class="card">
                     <!--<img src="produto${product.id}.jpg" alt="${product.name}" class="card-img-top">-->
                     <div class="card-body">
+                        <p hidden id="Id">@Html.DisplayFor(model => item.Id)</p>
                         <h5 class="card-title">@Html.DisplayFor(model => item.Title)</h5>
                         <p class="card-text">@Html.DisplayFor(model => item.Description)</p>
                         <p class="card-text">Preço: @Html.DisplayFor(model => item.Price)</p>
@@ -21,6 +33,7 @@
                     </div>
                 </div>
             </div>
+        </a>
         }
     </div>
 </div>
@@ -41,3 +54,13 @@
         <a href="/Home/Index?page=@(ViewData["TotalPages"])" class="btn btn-default">Última</a>
     }
 </div>
+<link href="~/lib/jquery/dist/jquery.js" />
+@*<script>
+        $(function () {
+            $('#produto').on('click', function () {
+                var prodId = $('Id');
+                var targetUrl = '/Product/Details/' + prodId.toString();
+                $(this).load(targetUrl);
+            });
+        });
+    </script>*@

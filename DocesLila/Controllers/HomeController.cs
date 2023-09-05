@@ -70,24 +70,24 @@ namespace DocesLila.Controllers
                 try
                 {
                     // Verifique se o diretório de destino existe; se não, crie-o
-                    if (productVW.FileUpload.Arquivo != null)
-                    {
-                        string uploadDir = Path.Combine(_environment.WebRootPath, "Images");
-                        if (!Directory.Exists(uploadDir))
-                        {
-                            Directory.CreateDirectory(uploadDir);
-                        }
-                        // Gere um nome de arquivo único para evitar conflitos
-                        string fileName = Path.GetFileName(productVW.FileUpload.Arquivo.FileName);
-                        string filePath = Path.Combine(uploadDir, fileName);
+                    //if (productVW.FileUpload.Arquivo != null)
+                    //{
+                    //    string uploadDir = Path.Combine(_environment.WebRootPath, "Images");
+                    //    if (!Directory.Exists(uploadDir))
+                    //    {
+                    //        Directory.CreateDirectory(uploadDir);
+                    //    }
+                    //    // Gere um nome de arquivo único para evitar conflitos
+                    //    string fileName = Path.GetFileName(productVW.FileUpload.Arquivo.FileName);
+                    //    string filePath = Path.Combine(uploadDir, fileName);
 
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            productVW.FileUpload.Arquivo.CopyTo(stream);
-                        }
+                    //    using (var stream = new FileStream(filePath, FileMode.Create))
+                    //    {
+                    //        productVW.FileUpload.Arquivo.CopyTo(stream);
+                    //    }
 
-                        ViewBag.Message = "Arquivo enviado com sucesso!";
-                    }
+                    //    ViewBag.Message = "Arquivo enviado com sucesso!";
+                    //}
 
                     var product = new Product
                     {
